@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
-import {  Calendar } from 'lucide-react'
+import {  Calendar } from 'lucide-react';
 
 
 export default function NewsletterAndBlog() {
@@ -58,8 +58,8 @@ export default function NewsletterAndBlog() {
 
      
     </div>
-  )
-}
+  );
+};
 
 {/* <section className="bg-white py-16 text-center">
 <div className="container mx-auto px-4">
