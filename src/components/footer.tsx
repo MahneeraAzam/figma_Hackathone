@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button } from './ui/button'
-import { Facebook, Instagram, Twitter } from 'lucide-react'
 import { Input } from './ui/input'
+import { FiInstagram } from 'react-icons/fi'
+import { FaFacebookF, FaTwitter } from 'react-icons/fa'
 
 function footer() {
   return (
@@ -70,13 +71,16 @@ function footer() {
               <p className="text-[#9DA0AE]">©Webecy - All Rights Reserved</p>
               <div className="flex gap-4">
                 <Button size="icon" variant="ghost" className="bg-[#151875] text-white hover:bg-[#151875]/90">
-                  <Facebook className="w-4 h-4" />
+                <FaFacebookF className="w-4 h-4" />
+                  
                 </Button>
                 <Button size="icon" variant="ghost" className="bg-[#151875] text-white hover:bg-[#151875]/90">
-                  <Instagram className="w-4 h-4" />
+                <FiInstagram className="w-4 h-4"/>
+                 
                 </Button>
                 <Button size="icon" variant="ghost" className="bg-[#151875] text-white hover:bg-[#151875]/90">
-                  <Twitter className="w-4 h-4" />
+                <FaTwitter className="w-4 h-4"  />
+            
                 </Button>
               </div>
             </div>

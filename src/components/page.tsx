@@ -1,8 +1,8 @@
 import Image from "next/image"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+// import { Input } from "@/components/ui/input"
+// import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Facebook, Twitter, Instagram, Calendar } from 'lucide-react'
+import {  Calendar } from 'lucide-react'
 
 
 export default function NewsletterAndBlog() {
