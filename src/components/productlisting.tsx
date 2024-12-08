@@ -1,6 +1,7 @@
 import { Heart, Search, ShoppingCart } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card } from "@/components/ui/card"
+import Image from 'next/image'
 
 const products = [
   { name: "Velvet Accent Chair", price: 42.00, originalPrice: 65.00, image: "/listingcard3.png" },
@@ -57,10 +58,12 @@ export default function ProductListing() {
                     Sale
                   </div>
                 )}
-                <img
+                <Image
                   src={product.image}
                   alt={product.name}
                   className="max-h-[250px] w-auto object-contain"
+                  width={223}
+                  height={229}
                 />
                 {/* Hover Actions */}
                 <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 opacity-0 group-hover:opacity-100 transition-opacity">

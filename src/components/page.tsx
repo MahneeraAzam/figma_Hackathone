@@ -1,6 +1,4 @@
 import Image from "next/image"
-// import { Input } from "@/components/ui/input"
-// import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {  Calendar } from 'lucide-react'
 
@@ -25,8 +23,8 @@ export default function NewsletterAndBlog() {
       <section className="py-16">
         <h2 className="text-[#151875] text-4xl font-josefin text-center mb-12">Latest Blog</h2>
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[...Array(3)].map((item) => (
-            <Card key={item} className="overflow-hidden shadow-lg">
+          {[...Array(3)].map((item, index) => (
+            <Card key={index} className="overflow-hidden shadow-lg">
               <div className="bg-[#E7E4F8] h-60 relative">
                 <Image
                   src="/blog1.png"
