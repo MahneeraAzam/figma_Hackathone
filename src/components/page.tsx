@@ -25,12 +25,12 @@ export default function NewsletterAndBlog() {
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
           {[...Array(3)].map((item, index) => (
             <Card key={index} className="overflow-hidden shadow-lg">
-              <div className="bg-[#E7E4F8] h-60 relative">
+              <div className="bg-[#E7E4F8] relative">
                 <Image
                   src="/blog1.png"
                   alt="Blog"
-                  fill
-                  className="object-cover"
+                  width={480}
+                  height={240}
                 />
               </div>
               <CardContent className="p-6">
