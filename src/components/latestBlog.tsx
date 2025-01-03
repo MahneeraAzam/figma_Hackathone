@@ -34,7 +34,7 @@ const res = await client.fetch(`*[_type == 'landingPage'][0].sections[6]{
       <section className="py-16">
         <h2 className="text-[#151875] text-4xl font-josefin text-center mb-12">Latest Blog</h2>
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {(res.latestBlogCards).map((_: any, index : any) => (
+          {res.latestBlogCards.map(( index : any) => (
             <Card key={index} className="overflow-hidden shadow-lg">
               <div className="bg-[#E7E4F8] relative">
                 <Image
