@@ -1,12 +1,18 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { client } from "@/sanity/lib/client"
 
-export function Hero() {
+export async function Hero() {
+
+  const res = await client.fetch("*[_type == 'landingPage'][0]{'heroImg': sections[0].heroImg.asset->url,'heroImg2': sections[0].heroImg2.asset->url,'heroHeading': sections[0].heroHeading,}")
+
+  const {heroImg,heroImg2,heroHeading} = await res
+
   return (
     <div className="container mx-auto px-4 py-16">
         <div className="flex flex-col lg:flex-row items-center mt-[122px] pl-[70px]">
             <Image
-            src="/blacklamp.png"
+            src={heroImg}
             alt="Pink Shell Chair"
             width={387}
             height={387}
@@ -17,7 +23,7 @@ export function Hero() {
         <div className="space-y-6">
           <span className="text-[#FB2E86] font-bold ">Best Furniture For Your Castle....</span>
           <h1 className="text-5xl font-bold leading-tight">
-            New Furniture Collection Trends in 2020
+            New Furniture Collection Trends in {heroHeading}
           </h1>
           <p className="text-[#8A8FB9]">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.
@@ -32,7 +38,7 @@ export function Hero() {
           <div className="absolute top-10 -left-14 w-[648px] h-[648px] rounded-full bg-[#ECD2FA]/35" />
           <div className="relative">
             <Image
-              src="/pinksofa.png"
+              src={heroImg2}
               alt="Pink Shell Chair"
               width={629}
               height={629}

@@ -1,9 +1,20 @@
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import {  Calendar } from 'lucide-react';
+import { client } from "@/sanity/lib/client";
 
 
-export default function NewsletterAndBlog() {
+export default async function NewsletterAndBlog() {
+
+const res = await client.fetch(`*[_type == 'landingPage'][0].sections[6]{
+  'latestBlogCards': latestBlogCards[]{
+    'latestBlogHeading': latestBlogHeading,
+    'latestBlogDate': latestBlogDate,
+    'latestBlogDescription': latestBlogDescription,
+    'latestBlogImage': latestBlogImage.asset->url,
+  },
+}`);
+
   return (
     <div className="min-h-screen">
       {/* Newsletter Section */}
@@ -23,11 +34,11 @@ export default function NewsletterAndBlog() {
       <section className="py-16">
         <h2 className="text-[#151875] text-4xl font-josefin text-center mb-12">Latest Blog</h2>
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[...Array(3)].map((item, index) => (
+          {(res.latestBlogCards).map((item: any, index : any) => (
             <Card key={index} className="overflow-hidden shadow-lg">
               <div className="bg-[#E7E4F8] relative">
                 <Image
-                  src="/blog1.png"
+                  src={res.latestBlogCards[0].latestBlogImage}
                   alt="Blog"
                   width={480}
                   height={240}
@@ -38,14 +49,14 @@ export default function NewsletterAndBlog() {
                   <span className="text-[#FB2E86]">SaberAli</span>
                   <div className="flex items-center gap-1 text-[#151875]">
                     <Calendar className="w-4 h-4" />
-                    <span>21 August, 2020</span>
+                    <span>{res.latestBlogCards[0].latestBlogDate}</span>
                   </div>
                 </div>
                 <h3 className="text-[#151875] text-lg font-semibold mb-4">
-                  Top essential Trends in 2021
+                 {res.latestBlogCards[0].latestBlogHeading}
                 </h3>
                 <p className="text-[#72718F] mb-4">
-                  More off this less hello samlande lied much over tightly circa horse taped mightly
+                  {res.latestBlogCards[0].latestBlogDescription}
                 </p>
                 <a href="#" className="text-[#151875] underline">
                   Read More

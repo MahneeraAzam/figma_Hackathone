@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { Heart, Search, ShoppingCart } from 'lucide-react'
 import { Card, CardContent } from "@/components/ui/card"
+import { client } from "@/sanity/lib/client"
 
 interface Product {
   id: number
@@ -42,15 +43,20 @@ const products: Product[] = [
   // Add more products as needed
 ]
 
-export function FeaturedProducts() {
+export async function  FeaturedProducts() {
+
+  const res = await client.fetch("*[_type == 'landingPage'][0].sections[1]{'cardSection' : cardSection[]{'cardSecHeading' : cardSecHeading,'cardSecPrice' : cardSecPrice,'cardSecSubHeading' : cardSecSubHeading,'cardSecImg' : cardSecImg.asset->url,},}")
+
+  // const {cardSecHeading,cardSection,cardSecPrice,cardSecSubHeading,cardSecImg} = await res
+
   return (
     <section className="container mx-auto px-4 py-16 ">
       <h2 className="text-4xl font-bold text-center text-[#1A0B5B] mb-12">
         Featured Products
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {products.map((product) => (
-          <Card key={product.id} className="group relative">
+        {(res.cardSection).map((product: any, index : number) => (
+          <Card key={index} className="group relative">
             <CardContent className="p-0">
               <div className="bg-[#F6F7FB] p-8">
                 <div className="absolute top-4 left-4 space-y-4 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -65,7 +71,7 @@ export function FeaturedProducts() {
                   </button>
                 </div>
                 <Image
-                  src={product.image}
+                  src={res.cardSection[index].cardSecImg}
                   alt={product.name}
                   width={200}
                   height={200}
@@ -73,20 +79,20 @@ export function FeaturedProducts() {
                 />
               </div>
               <div className="p-4 text-center">
-                <h3 className="text-lg font-bold text-[#151875]">{product.name}</h3>
+                <h3 className="text-lg font-bold text-[#151875]">{res.cardSection[index].cardSecHeading}</h3>
                 <div className="flex justify-center gap-2 mt-2">
                   <span className="w-3 h-3 rounded-full bg-[#05E6B7]" />
                   <span className="w-3 h-3 rounded-full bg-[#F701A8]" />
                   <span className="w-3 h-3 rounded-full bg-[#00009D]" />
                 </div>
                 <div className="mt-2">
-                  <span className="text-sm text-[#151875]">Code - {product.code}</span>
+                  <span className="text-sm text-[#151875]">Code - {res.cardSection[index].cardSecSubHeading}</span>
                 </div>
                 <div className="mt-1">
-                  <span className="text-sm text-[#151875]">${product.price.toFixed(2)}</span>
+                  <span className="text-sm text-[#151875]">${res.cardSection[index].cardSecPrice}.00</span>
                 </div>
               </div>
-            </CardContent>
+            </CardContent> 
           </Card>
         ))}
       </div>

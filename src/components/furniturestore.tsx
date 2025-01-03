@@ -2,6 +2,7 @@ import Image from "next/image"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { client } from "@/sanity/lib/client"
 
 const trendingProducts = [
   { id: 1, name: "Cantilever chair", price: 26, oldPrice: 42, image: "/trendingpro1.png" },
@@ -22,18 +23,37 @@ const topCategories = [
   { id: 4, name: "Mini LCW Chair", price: 56, image: "/card1.png" },
 ]
 
-export default function FurnitureStore() {
+
+export default async function FurnitureStore() {
+
+const res = await client.fetch(`*[_type == 'landingPage'][0].sections[4]{
+  'trendingProductsCards': trendingProductsCards[]{
+    'trendingProductsImage': trendingProductsImage.asset->url,
+    'trendingProductsOriginalPrice': trendingProductsOriginalPrice,
+    'trendingProductsPrice': trendingProductsPrice,
+    'trendingProductsName': trendingProductsName
+  }
+}`);
+
+const res1 = await client.fetch(`*[_type == 'landingPage'][0].sections[5]{
+  'topCategoriesCards': topCategoriesCards[]{
+    'topCategoriesPrice': topCategoriesPrice,
+    'topCategoriesName': topCategoriesName,
+    'topCategoriesImage': topCategoriesImage.asset->url
+  }
+}`);
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Trending Products Section */}
       <h2 className="text-center text-4xl font-josefin text-[#151875] mb-8">Trending Products</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        {trendingProducts.map((product) => (
-          <Card key={product.id} className="bg-white shadow-lg">
+        {(res.trendingProductsCards).map((product: any , index: any ) => (
+          <Card key={index} className="bg-white shadow-lg">
             <div className="p-4">
               <div className="bg-[#F5F6F8] rounded-lg p-4 mb-4">
                 <Image
-                  src={product.image}
+                  src={product.trendingProductsImage}
                   alt={product.name}
                   width={200}
                   height={200}
@@ -41,10 +61,10 @@ export default function FurnitureStore() {
                 />
               </div>
               <div className="text-center">
-                <h3 className="text-[#151875] font-bold mb-2">{product.name}</h3>
+                <h3 className="text-[#151875] font-bold mb-2">{product.trendingProductsName}</h3>
                 <div className="flex justify-center gap-4">
-                  <span className="text-[#151875]">${product.price.toFixed(2)}</span>
-                  <span className="text-[#151875] opacity-30 line-through">${product.oldPrice.toFixed(2)}</span>
+                  <span className="text-[#151875]">${product.trendingProductsPrice}.00</span>
+                  <span className="text-[#151875] opacity-30 line-through">${product.trendingProductsOriginalPrice}.00</span>
                 </div>
               </div>
             </div>
@@ -121,12 +141,12 @@ export default function FurnitureStore() {
       {/* Top Categories */}
       <h2 className="text-center text-4xl font-josefin text-[#151875] mb-8">Top Categories</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {topCategories.map((category) => (
-          <Card key={category.id}>
+        {(res1.topCategoriesCards).map((category: any, index: any) => (
+          <Card key={index}>
             <div className="p-4">
               <div className="bg-[#F6F7FB] rounded-full p-4 mb-4">
                 <Image
-                  src={category.image}
+                  src={category.topCategoriesImage}
                   alt={category.name}
                   width={200}
                   height={200}
@@ -138,11 +158,11 @@ export default function FurnitureStore() {
                   View Shop
                 </Button>
                 <div className="flex justify-center gap-4 text-[#151875]">
-                  <span>Mini</span>
-                  <span>LCW</span>
-                  <span>Chair</span>
+              <span>
+              {category.topCategoriesName}
+              </span>
                 </div>
-                <p className="text-[#151875]">${category.price.toFixed(2)}</p>
+                <p className="text-[#151875]">${category.topCategoriesPrice}.00</p>
               </div>
             </div>
           </Card>

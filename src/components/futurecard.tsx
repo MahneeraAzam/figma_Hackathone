@@ -1,15 +1,25 @@
 import React from 'react';
 import Image from 'next/image';
+import { client } from '@/sanity/lib/client';
 
 
-const FeatureCard = () => {
+const FeatureCard = async () => {
+
+const res = await client.fetch(`*[_type == 'landingPage'].sections[_type == 'uniqueFeatures'][].uniqueFeatures[]{
+  "uniqueFeaturesImg": uniqueFeaturesImg.asset->url,
+  "uniqueFeaturesHeading": uniqueFeaturesHeading,
+  "uniqueFeaturesPrice": uniqueFeaturesPrice
+}`);
+
+const {uniqueFeaturesImg, uniqueFeaturesHeading, uniqueFeaturesPrice} = await res
+
   return (
     <div className="relative w-full h-[579px] bg-[#F1F0FF] flex items-center justify-center">
       {/* Left Section */}
       <div className="relative w-[30%] flex justify-center">
         <div className="absolute w-[80%] h-[80%] bg-[#F5E1FC] rounded-full"></div>
         <Image
-          src="/bluesofa.png"
+          src={res[0].uniqueFeaturesImg}
           alt="Sofa"
           className="relative z-10 w-[80%]"
           width={509}
@@ -46,10 +56,10 @@ const FeatureCard = () => {
 
         <div className="mt-10">
           <h3 className="text-[#151875] text-[14px] font-semibold font-[Josefin Sans]">
-            B&B Italian Sofa
+           {res[0].uniqueFeaturesHeading}
           </h3>
           <p className="text-[#151875] text-[14px] font-normal font-[Lato]">
-            $32.00
+            ${res.uniqueFeaturesPrice}00
           </p>
         </div>
       </div>

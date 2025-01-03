@@ -25,7 +25,7 @@ export function Header() {
               USD
               <ChevronDown className="h-4 w-4" />
             </div>
-            <Link href="/login" className="flex items-center gap-2">
+            <Link href="/loginForm" className="flex items-center gap-2">
               Login
               <User className="h-4 w-4" />
             </Link>
@@ -60,7 +60,7 @@ export function Header() {
             <Link href="/shop" className="text-[#0D0E43]">
               Shop
             </Link>
-            <Link href="/contact" className="text-[#0D0E43]">
+            <Link href="/contactUs" className="text-[#0D0E43]">
               Contact
             </Link>
           </nav>
