@@ -1,11 +1,11 @@
-import { title } from "process";
+
 
 export default {
     title: 'Card Section',
     name: 'cardSection',
     type: 'object',
     fields: [
-        // {title: 'Card Image', name: 'cardImg', type: 'image'},
+
         //br br cards
         {title: 'Card Section',
              name: 'cardSection',
