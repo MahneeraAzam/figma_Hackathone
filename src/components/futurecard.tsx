@@ -11,7 +11,7 @@ const res = await client.fetch(`*[_type == 'landingPage'].sections[_type == 'uni
   "uniqueFeaturesPrice": uniqueFeaturesPrice
 }`);
 
-const {uniqueFeaturesImg, uniqueFeaturesHeading, uniqueFeaturesPrice} = await res
+// const {uniqueFeaturesImg, uniqueFeaturesHeading, uniqueFeaturesPrice} = await res
 
   return (
     <div className="relative w-full h-[579px] bg-[#F1F0FF] flex items-center justify-center">
@@ -59,7 +59,7 @@ const {uniqueFeaturesImg, uniqueFeaturesHeading, uniqueFeaturesPrice} = await re
            {res[0].uniqueFeaturesHeading}
           </h3>
           <p className="text-[#151875] text-[14px] font-normal font-[Lato]">
-            ${res.uniqueFeaturesPrice}00
+            ${res.uniqueFeaturesPrice}.00
           </p>
         </div>
       </div>
